@@ -1,0 +1,73 @@
+# Dockerfile ignore file for Atalanta
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build artifacts
+*.o
+*.obj
+*.exe
+atalanta
+fsim
+
+# Documentation and tutorials (optional - remove this line if you want to include them)
+atalanta_tutorials/
+*.pdf
+*.ppt
+
+# Test and data files (we'll include specific ones we need)
+*.test
+*.vec
+*.ufaults
+
+# Log files
+*.log
+*.plg
+
+# Development files
+*.IAB
+*.IAD
+*.IMB
+*.IMD
+*.opt
+*.PFI
+*.PO
+*.positions
+*.PR
+*.PRI
+*.PS
+*.SearchResults
+*.sln
+*.udb
+*.vcproj
+*.WK3
+*.dsp
+*.dsw
+
+# Docker files (don't include in image)
+docker-compose.yml
+examples.sh
+build.sh
+Docker_README.md
+
+# Temporary files
+*.tmp
+*.temp

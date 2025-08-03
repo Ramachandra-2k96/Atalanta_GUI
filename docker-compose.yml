@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  atalanta:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: atalanta:2.0
+    container_name: atalanta-container
+    volumes:
+      # Mount current directory to /data in container
+      - ./data:/data
+      # Alternative: Mount specific directories
+      # - ./circuits:/data/circuits:ro  # Read-only circuit files
+      # - ./results:/data/results       # Results output
+      # - ./logs:/data/logs            # Log files
+    working_dir: /data
+    # Interactive mode - comment out command to use default
+    # command: ["atalanta", "your_circuit.bench"]
+    
+    # For interactive use, uncomment these lines:
+    # stdin_open: true
+    # tty: true
+    
+    # Environment variables
+    environment:
+      - ATALANTA_MAN=/opt/atalanta
+    
+    # Resource limits (optional)
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+  # Optional: Development service for building and testing
+  atalanta-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: atalanta  # If using multi-stage build
+    image: atalanta:dev
+    container_name: atalanta-dev
+    volumes:
+      - .:/workspace
+      - ./data:/data
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+# Optional: Create named volumes for persistent data
+volumes:
+  atalanta_data:
+    driver: local
+  atalanta_results:
+    driver: local
+
+# Optional: Network configuration
+networks:
+  atalanta_network:
+    driver: bridge
